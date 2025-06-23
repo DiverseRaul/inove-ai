@@ -104,7 +104,7 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '../../supabase.js';
 import type { User, PostgrestError } from '@supabase/supabase-js';
 import NavBar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
