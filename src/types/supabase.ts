@@ -6,8 +6,8 @@ export interface SupabaseConfig {
 
 // Default configuration (replace with your actual Supabase credentials)
 export const supabaseConfig: SupabaseConfig = {
-  url: process.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co',
-  anonKey: process.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
+  url: import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co',
+  anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
 }
 
 // Contact form data interface
