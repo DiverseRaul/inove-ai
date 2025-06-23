@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { RouterLink, useRouter } from 'vue-router';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../../supabase.js';
 import { onUnmounted } from 'vue';
 
 const router = useRouter();
