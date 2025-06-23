@@ -19,11 +19,6 @@ const routes = [
     component: () => import('../views/login/SignupView.vue'),
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import('../views/ProfileView.vue'),
-  },
-  {
     path: '/check-email',
     name: 'CheckEmail',
     component: () => import('../views/login/CheckEmailView.vue'),
