@@ -55,9 +55,9 @@ After the GitHub Action completes (usually 2-3 minutes):
 
 ### 1. Update CNAME File
 
-Edit the file `public/CNAME` and replace `your-custom-domain.com` with your actual domain:
+Edit the file `public/CNAME` and replace `your-custom-domain.com` with `ai.inove.studio`:
 ```
-mydomain.com
+ai.inove.studio
 ```
 
 ### 2. Configure DNS
