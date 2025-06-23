@@ -116,7 +116,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink, useR uter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { supabase } from '../../lib/supabaseClient';
 
 // Form state
