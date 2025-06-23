@@ -270,7 +270,6 @@ const handleSignup = async () => {
         data: {
           username: username.value,
           full_name: `${firstName.value.trim()} ${lastName.value.trim()}`
-        }
         },
         emailRedirectTo: `${window.location.origin}/auth/confirmed` // Ensure this path matches your Vue router and Supabase redirect settings
       }
