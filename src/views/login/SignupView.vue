@@ -192,7 +192,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { RouterLink, useRouter } from 'vue-router'; 
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 
 // Form state
 const firstName = ref('');
