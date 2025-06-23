@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { supabase } from '../supabase'
+import { supabase } from '../lib/supabaseClient'
 
 // This will hold the user's session information, reactive to changes.
 export const userSession = ref(null)

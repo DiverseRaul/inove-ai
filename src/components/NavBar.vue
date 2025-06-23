@@ -29,7 +29,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { userSession } from '../store/session'; // Import the session store
-import { supabase } from '../supabase'; // Import the supabase client
+import { supabase } from '../lib/supabaseClient'; // Import the supabase client
 
 const isScrolled = ref(false);
 const router = useRouter(); // Get the router instance

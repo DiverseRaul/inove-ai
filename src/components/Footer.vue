@@ -8,6 +8,10 @@
         <p class="copyright">
           © {{ currentYear }} inove.ai. All rights reserved.
         </p>
+        <div class="version-info">
+          <span>v{{ versionNumber }}<span class="version-letter">a</span></span>
+          <span>Build {{ buildNumber }}</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -17,6 +21,8 @@
 import { computed } from 'vue'
 
 const currentYear = computed(() => new Date().getFullYear())
+const versionNumber = computed(() => '0.1')
+const buildNumber = computed(() => '062320251')
 </script>
 
 <style scoped>
@@ -60,6 +66,21 @@ const currentYear = computed(() => new Date().getFullYear())
   color: var(--color-text-secondary);
   font-size: var(--font-size-body-small);
   margin: 0;
+}
+
+.version-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: var(--font-size-body-medium);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.version-letter {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: inherit;
 }
 
 @media (max-width: 768px) {
