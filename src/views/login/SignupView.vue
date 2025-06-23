@@ -321,7 +321,7 @@ const handleSignup = async () => {
   background: var(--color-background);
   background-size: 400% 400%;
   animation: subtleGradientBG 25s ease infinite;
-  overflow: hidden; /* Hide scrollbars if gradient makes page too large */
+  overflow: hidden; /*  Hide scrollbars if gradient makes page too large */
 }
 
 .signup-card {
