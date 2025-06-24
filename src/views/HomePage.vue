@@ -303,8 +303,8 @@ onUnmounted(() => {
 
 /* Scrolled state adjustments */
 .scrolled .shape {
-  opacity: 0.85;
-  filter: blur(30px);
+  opacity: 0.95;
+  filter: blur(8px);
 }
 
 .scrolled .shape-1 {
