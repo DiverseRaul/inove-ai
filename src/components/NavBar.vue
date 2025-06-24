@@ -130,7 +130,6 @@ onUnmounted(() => {
 
 .logo-text span {
   font-weight: 300; /* Lighter for '.ai' */
-  color: var(--color-primary, #A188E2); /* Accent color for .ai */
 }
 
 .auth-actions {
