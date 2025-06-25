@@ -334,6 +334,7 @@ const handleSignup = async () => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   z-index: 1;
+  margin-top: 5rem;
 }
 
 .signup-card:hover {

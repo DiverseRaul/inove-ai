@@ -8,9 +8,9 @@
       </div>
       <h1 class="title">Email Confirmed!</h1>
       <p class="message">
-        Your email address has been successfully verified. You can now log in to your account.
+        Your email address has been successfully verified. You can now go back home.
       </p>
-      <RouterLink to="/login" class="go-to-login-button">Go to Login</RouterLink>
+      <RouterLink to="/" class="go-to-login-button">Go to Home</RouterLink>
     </div>
   </div>
 </template>

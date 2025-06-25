@@ -8,18 +8,13 @@
   </div>
 </template>
 
-<script>
-import Header from './components/NavBar.vue'
+<script setup>
+import Header from './components/NavBar.vue';
+import Footer from './components/Footer.vue';
+import { useAuth } from './store/session.js';
 
-import Footer from './components/Footer.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Header,
-    Footer
-  }
-}
+// Initialize the auth listener to handle user session state across the app
+useAuth();
 </script>
 
 <style>
@@ -33,4 +28,3 @@ export default {
   flex: 1;
 }
 </style>
-

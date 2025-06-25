@@ -16,56 +16,85 @@
           </span>
         </h1>
         <p class="tagline hero-tagline">Dream. Plan. Create.</p>
+        <div v-if="user" class="hero-actions">
+          <a href="/profile" class="profile-link-btn">
+            <i class="mdi mdi-account-circle-outline"></i>
+            <span>My Profile</span>
+          </a>
+        </div>
       </div>
     </section>
 
     <div class="content-section">
       <div v-if="loading" class="loading-state">
-        <p>Loading projects and ideas...</p>
+        <p>Loading...</p>
       </div>
       <div v-else-if="error" class="error-state">
         <p>Could not load data. Please try again later.</p>
       </div>
-      <div v-else class="grid-container">
-        <!-- Projects Column -->
-        <div class="grid-column projects-column">
-          <h2 class="section-title">Projects</h2>
-          <a v-for="project in projects" :key="project.id" :href="project.url" target="_blank" class="card">
-            <div class="card-content">
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
+      
+      <!-- Logged-in View -->
+      <div v-else-if="user">
+        <div v-if="projects.length > 0 || ideas.length > 0" class="grid-container">
+          <!-- Projects Column -->
+          <div class="grid-column projects-column">
+            <h2 class="section-title"><i class="mdi mdi-rocket-launch-outline"></i> Projects</h2>
+            
+            <template v-if="projects.length > 0">
+              <a v-for="project in projects" :key="project.id" :href="project.url" target="_blank" class="card">
+                <div class="card-content">
+                  <h3>{{ project.title }}</h3>
+                  <p>{{ project.description }}</p>
+                </div>
+                <span class="card-cta">View Project <i class="mdi mdi-arrow-right"></i></span>
+              </a>
+            </template>
+            
+            <div v-else-if="ideas.length > 0" class="card placeholder-card">
+              <div class="card-content">
+                <h3><i class="mdi mdi-rocket-launch-outline"></i> Ready for the Next Step?</h3>
+                <p>You have some great ideas. Turn one into a project to get started.</p>
+              </div>
             </div>
-            <span class="card-cta">
-              View Project
-              <svg class="cta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </span>
-          </a>
-          <div class="view-all-container">
-            <a href="/projects" class="view-all-btn">
-              View All Projects
-              <svg class="view-all-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+
+            <div class="view-all-container">
+              <a href="/projects" class="view-all-btn">View Projects <i class="mdi mdi-arrow-right"></i></a>
+            </div>
+          </div>
+          <!-- Ideas Column -->
+          <div class="grid-column ideas-column">
+            <h2 class="section-title"><i class="mdi mdi-lightbulb-on-outline"></i> Recent Ideas</h2>
+            <a v-for="idea in ideas" :key="idea.id" :href="idea.url" target="_blank" class="card">
+              <div class="card-content">
+                <h3>{{ idea.title }}</h3>
+                <p>{{ idea.description }}</p>
+              </div>
+              <span class="card-cta">Explore Idea <i class="mdi mdi-arrow-right"></i></span>
             </a>
+            <div class="view-all-container button-group">
+              <a href="/create-idea" class="view-all-btn primary-action"><i class="mdi mdi-plus"></i> New Idea</a>
+              <a href="/ideas" class="view-all-btn">View Ideas <i class="mdi mdi-arrow-right"></i></a>
+            </div>
           </div>
         </div>
-        <!-- Ideas Column -->
-        <div class="grid-column ideas-column">
-          <h2 class="section-title">Recent Ideas</h2>
-          <a v-for="idea in ideas" :key="idea.id" :href="idea.url" target="_blank" class="card">
-            <div class="card-content">
-              <h3>{{ idea.title }}</h3>
-              <p>{{ idea.description }}</p>
-            </div>
-            <span class="card-cta">
-              Explore Idea
-              <svg class="cta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </span>
-          </a>
-          <div class="view-all-container">
-            <a href="/ideas" class="view-all-btn">
-              View All Ideas
-              <svg class="view-all-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
+
+        <div v-else class="no-data-container">
+          <h2 class="no-data-title"><i class="mdi mdi-creation"></i> Ready to Create?</h2>
+          <p class="no-data-subtitle">You haven't created any projects or ideas yet. Let's change that.</p>
+          <div class="no-data-actions">
+            <a href="/create-idea" class="cta-button primary"><i class="mdi mdi-plus-circle-outline"></i> Create First Idea</a>
+            <a href="/projects" class="cta-button secondary"><i class="mdi mdi-rocket-launch-outline"></i> Start a Project</a>
           </div>
+        </div>
+      </div>
+
+      <!-- Guest View -->
+      <div v-else class="guest-view">
+        <h2 class="guest-title"><i class="mdi mdi-lock-open-variant-outline"></i> Unlock Your Potential</h2>
+        <p class="guest-subtitle">Sign in to manage your projects and ideas, or get started for free.</p>
+        <div class="guest-actions">
+          <a href="/login" class="cta-button primary"><i class="mdi mdi-login"></i> Sign In</a>
+          <a href="/signup" class="cta-button secondary"><i class="mdi mdi-account-plus-outline"></i> Get Started</a>
         </div>
       </div>
     </div>
@@ -76,6 +105,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { supabase } from '../lib/supabaseClient';
 
+const user = ref(null);
 const isScrolled = ref(false);
 const projects = ref([]);
 const ideas = ref([]);
@@ -86,13 +116,13 @@ const handleScroll = () => {
   isScrolled.value = window.scrollY > 50;
 };
 
-async function fetchData() {
+async function fetchData(userId) {
   try {
-    loading.value = true;
     const { data: projectsData, error: projectsError } = await supabase
       .from('projects')
       .select('*')
-      .order('created_at', { ascending: false })
+      .eq('user_id', userId)
+      .order('updated_at', { ascending: false })
       .limit(2);
 
     if (projectsError) throw projectsError;
@@ -101,7 +131,8 @@ async function fetchData() {
     const { data: ideasData, error: ideasError } = await supabase
       .from('ideas')
       .select('*')
-      .order('created_at', { ascending: false })
+      .eq('user_id', userId)
+      .order('updated_at', { ascending: false })
       .limit(2);
 
     if (ideasError) throw ideasError;
@@ -115,9 +146,17 @@ async function fetchData() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
-  fetchData();
+  
+  const { data: { session } } = await supabase.auth.getSession();
+  user.value = session?.user ?? null;
+
+  if (user.value) {
+    await fetchData(user.value.id);
+  } else {
+    loading.value = false;
+  }
 });
 
 onUnmounted(() => {
@@ -400,6 +439,9 @@ onUnmounted(() => {
 }
 
 .section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -473,19 +515,47 @@ onUnmounted(() => {
 }
 
 .card-cta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 1rem;
+  gap: 0.5rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #c9c3e2;
   margin-top: 1.5rem;
-  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  align-self: flex-start;
 }
 
 .card:hover .card-cta {
   color: #ffffff;
-  transform: translateX(4px);
+  background-color: rgba(103, 80, 164, 0.4);
+  border-color: rgba(103, 80, 164, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(103, 80, 164, 0.2);
+}
+
+.placeholder-card {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.placeholder-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(128, 90, 213, 0.5);
+}
+
+.placeholder-card h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .cta-icon {
@@ -500,45 +570,180 @@ onUnmounted(() => {
   margin-top: 1rem;
 }
 
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .view-all-btn {
+  gap: 0.5rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.4rem;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   color: #b3b3cc;
   background-color: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50px;
-  padding: 0.75rem 1.75rem;
-  transition: all 0.3s ease;
+  padding: 0.6rem 1rem;
+  transition: all 0.25s ease-in-out;
 }
 
 .view-all-btn:hover,
 .view-all-btn:focus {
-  background-color: var(--color-primary, #6750A4);
+  background-color: rgba(103, 80, 164, 0.2);
   color: #ffffff;
-  border-color: var(--color-primary, #6750A4);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(103, 80, 164, 0.3);
+  border-color: rgba(103, 80, 164, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(103, 80, 164, 0.2);
   outline: none;
 }
 
+.view-all-btn.primary-action {
+  background-color: var(--color-primary, #6750A4);
+  color: #ffffff;
+  border-color: var(--color-primary, #6750A4);
+  font-weight: 600;
+}
+
+.view-all-btn.primary-action:hover,
+.view-all-btn.primary-action:focus {
+  background-color: #7158b1;
+  border-color: #7158b1;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(103, 80, 164, 0.35);
+}
+
 .view-all-icon {
-  width: 18px;
-  height: 18px;
-  transition: transform 0.3s ease;
-  /* stroke is inherited from parent color */
+  width: 17px;
+  height: 17px;
+  transition: transform 0.25s ease-in-out;
 }
 
 .view-all-btn:hover .view-all-icon {
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
 @media (max-width: 768px) {
   .grid-container {
     grid-template-columns: 1fr;
   }
+}
+
+/* No Data and Guest View Styles */
+.no-data-container, .guest-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  margin: 0 auto;
+  max-width: 800px;
+  border-radius: 20px;
+  background: rgba(10, 10, 20, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+}
+
+.profile-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.profile-link-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(128, 90, 213, 0.5);
+  box-shadow: 0 4px 15px rgba(128, 90, 213, 0.1);
+  transform: translateY(-2px);
+}
+
+.profile-link-btn .mdi {
+  font-size: 1.5rem;
+}
+
+.no-data-title, .guest-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: -webkit-linear-gradient(45deg, #E0C3FC, #8EC5FC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.no-data-subtitle, .guest-subtitle {
+  font-size: 1.2rem;
+  color: #b3b3cc;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.no-data-actions, .guest-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-button {
+  gap: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.cta-button.primary {
+  background-color: #6750A4;
+  color: white;
+}
+
+.cta-button.primary:hover, .cta-button.primary:focus {
+  background-color: #7D5260;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(125, 82, 96, 0.4);
+  outline: none;
+}
+
+.cta-button.secondary {
+  background-color: transparent;
+  color: #e0e0e0;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-button.secondary:hover, .cta-button.secondary:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: white;
+  transform: translateY(-3px);
+  outline: none;
 }
 
 .loading-state, .error-state {
