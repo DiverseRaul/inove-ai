@@ -221,12 +221,18 @@ const generateIdea = async () => {
   isGenerating.value = true;
 
   try {
-    const apiUrl = "/api/generate";
+    const apiUrl = "/api/langflow/lf/9363e1f2-6063-4866-88a4-fd87f601a4c4/api/v1/run/74f55130-bb9c-47b5-b3d7-af3ca14158cc";
+    const apiToken = import.meta.env.VITE_ASTRA_DB_APPLICATION_TOKEN;
+
+    if (!apiToken) {
+      throw new Error("VITE_ASTRA_DB_APPLICATION_TOKEN is not set in your .env file.");
+    }
 
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiToken}`
       },
       body: JSON.stringify({
         input_value: userMessage,
