@@ -16,12 +16,6 @@
           </span>
         </h1>
         <p class="tagline hero-tagline">Dream. Plan. Create.</p>
-        <div v-if="user" class="hero-actions">
-          <a href="/profile" class="profile-link-btn">
-            <i class="mdi mdi-account-circle-outline"></i>
-            <span>My Profile</span>
-          </a>
-        </div>
       </div>
     </section>
 
@@ -64,13 +58,13 @@
           <!-- Ideas Column -->
           <div class="grid-column ideas-column">
             <h2 class="section-title"><i class="mdi mdi-lightbulb-on-outline"></i> Recent Ideas</h2>
-            <a v-for="idea in ideas" :key="idea.id" :href="idea.url" target="_blank" class="card">
+            <RouterLink v-for="idea in ideas" :key="idea.id" :to="`/idea/${idea.id}`" class="card">
               <div class="card-content">
                 <h3>{{ idea.title }}</h3>
                 <p>{{ idea.description }}</p>
               </div>
               <span class="card-cta">Explore Idea <i class="mdi mdi-arrow-right"></i></span>
-            </a>
+            </RouterLink>
             <div class="view-all-container button-group">
               <a href="/create-idea" class="view-all-btn primary-action"><i class="mdi mdi-plus"></i> New Idea</a>
               <a href="/ideas" class="view-all-btn">View Ideas <i class="mdi mdi-arrow-right"></i></a>
@@ -103,6 +97,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { RouterLink } from 'vue-router';
 import { supabase } from '../lib/supabaseClient';
 
 const user = ref(null);

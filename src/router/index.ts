@@ -5,7 +5,8 @@ import LoginView from '../views/login/LoginView.vue';
 import CheckEmailView from '../views/login/CheckEmailView.vue';
 import EmailConfirmedView from '../views/login/EmailConfirmedView.vue'; // Import the email confirmed view
 import SignupView from '../views/login/SignupView.vue'
-import CreateIdeaPage from '../views/CreateIdeaPage.vue'
+import CreateIdeaPage from '../views/CreateIdeaPage.vue';
+import IdeaDetailPage from '../views/IdeaDetailPage.vue';
 import ProfilePage from '../views/ProfilePage.vue'
 import ProjectsPage from '../views/ProjectsPage.vue'
 import IdeasPage from '../views/IdeasPage.vue'
@@ -41,8 +42,15 @@ const router = createRouter({
     },
     {
       path: '/create-idea',
-      name: 'create-idea',
-      component: CreateIdeaPage
+      name: 'CreateIdea',
+      component: CreateIdeaPage,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/idea/:id',
+      name: 'IdeaDetail',
+      component: IdeaDetailPage,
+      meta: { requiresAuth: true },
     },
     {
       path: '/profile',

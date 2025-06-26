@@ -29,6 +29,7 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_ASTRA_DB_APPLICATION_TOKEN: ${{ secrets.VITE_ASTRA_DB_APPLICATION_TOKEN }}
         run: npm run build
 
       - name: Prepare 404 page for SPA

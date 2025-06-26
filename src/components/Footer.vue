@@ -21,8 +21,8 @@
 import { computed } from 'vue'
 
 const currentYear = computed(() => new Date().getFullYear())
-const versionNumber = computed(() => '0.1.2')
-const buildNumber = computed(() => '062520251')
+const versionNumber = computed(() => '0.1.3')
+const buildNumber = computed(() => '062520252')
 </script>
 
 <style scoped>
